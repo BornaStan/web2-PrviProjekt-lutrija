@@ -1,0 +1,55 @@
+# ---------------------------
+# Node.js / Backend
+# ---------------------------
+
+# Node modules
+/backend-lutrija/node_modules/
+
+# Build output
+/backend-lutrija/dist/
+
+# Environment files
+/backend-lutrija/.env
+
+# Logs
+/backend-lutrija/*.log
+
+# TypeScript cache
+/backend-lutrija/.tsbuildinfo
+
+# ---------------------------
+# React / Frontend
+# ---------------------------
+
+# Node modules
+/frontend-lutrija/node_modules/
+
+# Build output
+/frontend-lutrija/build/
+
+# Environment files
+/frontend-lutrija/.env
+
+# Logs
+/frontend-lutrija/*.log
+
+# ---------------------------
+# General / IDE / OS
+# ---------------------------
+
+# Mac system files
+.DS_Store
+
+# VSCode
+.vscode/
+
+# IntelliJ / WebStorm
+.idea/
+
+# npm / yarn logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional coverage reports
+coverage/
