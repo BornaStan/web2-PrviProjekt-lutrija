@@ -1,0 +1,13 @@
+import { pool } from "../db";
+
+export async function getCurrentRound() {
+  const result = await pool.query("SELECT * FROM rounds WHERE is_active = TRUE");
+  return result.rows[0] || null;
+}
+
+export async function getLatestResults() {
+  const result = await pool.query(
+    "SELECT * FROM rounds WHERE results_numbers IS NOT NULL ORDER BY results_recorded_at DESC LIMIT 1"
+  );
+  return result.rows[0] || null;
+}
