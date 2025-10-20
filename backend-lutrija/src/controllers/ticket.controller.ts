@@ -3,19 +3,20 @@ import * as ticketService from "../services/ticket.service";
 
 export async function create(req: Request, res: Response) {
   const { document_number, numbers } = req.body;
-  const auth0_id = req.auth?.payload.sub;
+//  const auth0_id = req.auth?.payload.sub;
 
-  if (!auth0_id) return res.status(401).json({ message: "Unauthorized" });
+//  if (!auth0_id) return res.status(401).json({ message: "Unauthorized" });
 
-  const ticket = await ticketService.createTicket(auth0_id, document_number, numbers);
+const ticket = await ticketService.createTicket("hdfgfd", document_number, numbers);
+
   res.status(201).json(ticket);
 }
 
 export async function listUserTickets(req: Request, res: Response) {
-  const auth0_id = req.auth?.payload.sub;
-  if (!auth0_id) return res.status(401).json({ message: "Unauthorized" });
+  //const auth0_id = req.auth?.payload.sub;
+  //if (!auth0_id) return res.status(401).json({ message: "Unauthorized" });
 
-  const tickets = await ticketService.getUserTickets(auth0_id);
+  const tickets = await ticketService.getUserTickets("hdfgfd");
   res.json(tickets);
 }
 

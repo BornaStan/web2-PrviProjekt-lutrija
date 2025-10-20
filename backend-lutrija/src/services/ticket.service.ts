@@ -1,4 +1,4 @@
-import { pool } from "../db";
+import { pool } from "../db/config";
 
 export async function createTicket(auth0_id: string, document_number: string, numbers: number[]) {
   const active = await pool.query("SELECT id FROM rounds WHERE is_active = TRUE");

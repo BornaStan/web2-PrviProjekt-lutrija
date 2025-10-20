@@ -1,4 +1,4 @@
-import { pool } from "../db";
+import { pool } from "../db/config";
 
 export async function newRound() {
   const active = await pool.query("SELECT * FROM rounds WHERE is_active = TRUE");

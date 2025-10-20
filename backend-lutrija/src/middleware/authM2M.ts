@@ -1,4 +1,4 @@
-import { auth } from "express-oauth2-jwt-bearer";
+/* import { auth } from "express-oauth2-jwt-bearer";
 import { Request, Response, NextFunction } from "express";
 
 export const authM2M = auth({
@@ -14,3 +14,4 @@ export function requireM2MClient(req: Request, res: Response, next: NextFunction
   }
   next();
 }
+ */
