@@ -7,9 +7,18 @@ export async function create(req: Request, res: Response) {
 
 //  if (!auth0_id) return res.status(401).json({ message: "Unauthorized" });
 
-const ticket = await ticketService.createTicket("hdfgfd", document_number, numbers);
-
-  res.status(201).json(ticket);
+  try {
+    const ticket = await ticketService.createTicket("hdfgfd", document_number, numbers);
+    res.status(201).json(ticket);
+  } catch (error) {
+    // Log the error for server-side debugging
+    console.error('Error creating ticket:', error);
+    
+    // Return 400 Bad Request to the client
+    res.status(400).json({ 
+      message: error instanceof Error ? error.message : 'Failed to create ticket'
+    });
+  }
 }
 
 export async function listUserTickets(req: Request, res: Response) {
@@ -23,6 +32,6 @@ export async function listUserTickets(req: Request, res: Response) {
 export async function getTicketPublic(req: Request, res: Response) {
   const { id } = req.params;
   const ticket = await ticketService.getTicketById(id);
-  if (!ticket) return res.status(404).send();
+  if (!ticket) return res.status(204).send();
   res.json(ticket);
 }

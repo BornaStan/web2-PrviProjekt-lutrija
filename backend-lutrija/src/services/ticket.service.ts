@@ -1,6 +1,9 @@
 import { pool } from "../db/config";
 
 export async function createTicket(auth0_id: string, document_number: string, numbers: number[]) {
+  if (!isValidDocumentNumber) throw new Error("Invalid document number");
+  if (!isValidTicketNumbers) throw new Error("Invalid ticket numbers");
+  
   const active = await pool.query("SELECT id FROM rounds WHERE is_active = TRUE");
   if (active.rowCount === 0) throw new Error("No active round");
 
@@ -26,4 +29,18 @@ export async function getUserTickets(auth0_id: string) {
 export async function getTicketById(id: string) {
   const result = await pool.query("SELECT * FROM tickets WHERE id = $1", [id]);
   return result.rows[0] || null;
+}
+
+function isValidDocumentNumber(document_number: string): boolean {
+  const trimmed = document_number?.trim();
+  return trimmed?.length > 0 && trimmed?.length <= 20;
+}
+
+function isValidTicketNumbers(numbers: number[]): boolean {
+  if (numbers?.length < 6 || numbers?.length > 10) return false;
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[i] < 1 || numbers[i] > 45) return false;
+    if (numbers.slice(0, i).includes(numbers[i]) || numbers.includes(numbers[i], i + 1)) return false;
+  }
+  return true;
 }
