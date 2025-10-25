@@ -1,15 +1,23 @@
 import express from "express";
+import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
 import adminRoutes from "./routes/admin";
 import apiRoutes from "./routes/api";
-import { auth, requiresAuth } from "express-openid-connect";
+//import { auth, requiresAuth } from "express-openid-connect";
 
 dotenv.config();
 
 const app = express();
 
-const config = {
+// EJS setup
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "..", "src", "views"));
+
+// Static files (CSS, slike)
+app.use(express.static(path.join(__dirname, "..", "public")));
+
+/* const config = {
     authRequired: false,
     idpLogout: true,
     secret: process.env.SECRET,
@@ -21,15 +29,15 @@ const config = {
         response_type: 'code'
     },
 };
-
-app.use(auth(config));
+ */
+//app.use(auth(config));
 app.use(cors());
 app.use(express.json());
 
 app.get("/health", (_, res) => res.send("OK"));
 
 // admin endpointi (M2M)
-function requiresRole(role: string) {
+/* function requiresRole(role: string) {
     return (req, res, next) => {
         const user = req.oidc.user;
         const roles = user['https://example.com/roles'] || [];
@@ -38,11 +46,12 @@ function requiresRole(role: string) {
         }
         next();
     };
-}
+} */
 
-app.use("/admin", requiresAuth, requiresRole, adminRoutes);
+//app.use("/admin", requiresAuth, requiresRole, adminRoutes);
 
 // korisnički endpointi (user login)
 app.use("/api", apiRoutes);
+
 
 export default app;

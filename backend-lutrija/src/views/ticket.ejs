@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <title>Uplata listića</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Uplata Loto Listića</h1>
+
+    <form action="/api/tickets" method="POST" class="form">
+      <label for="idNumber">Broj osobne iskaznice / putovnice:</label>
+      <input type="text" name="idNumber" id="idNumber" maxlength="20" required>
+
+      <label for="numbers">Brojevi (6–10 brojeva od 1 do 45, odvojeni zarezom):</label>
+      <input type="text" name="numbers" id="numbers" placeholder="npr. 5,12,18,23,31,42" required>
+
+      <button type="submit" class="button">Uplati</button>
+    </form>
+
+    <p><a href="/" class="link">← Povratak na početnu</a></p>
+  </div>
+</body>
+</html>

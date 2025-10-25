@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lutrija - Početna</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Lutrija</h1>
+
+  <% if (user) { %>
+    <p>Prijavljeni ste kao <%= user.name %> | <a href="/logout">Odjava</a></p>
+  <% } else { %>
+    <p><a href="/login">Prijava</a></p>
+  <% } %>
+
+  <% if (round) { %>
+    <h2>Trenutno kolo: <%= round.id %></h2>
+    <% if (round.active) { %>
+      <p>Uplate su otvorene.</p>
+      <a href="/ticket">Uplati listić</a>
+    <% } else { %>
+      <p>Uplate su zatvorene.</p>
+      <% if (round.drawnNumbers) { %>
+        <p>Izvučeni brojevi: <%= round.drawnNumbers.join(", ") %></p>
+      <% } %>
+    <% } %>
+  <% } else { %>
+    <p>Trenutno nema aktivnog kola.</p>
+  <% } %>
+
+  <% if (tickets && tickets.length) { %>
+    <h3>Tvoji listići</h3>
+    <ul>
+      <% tickets.forEach(t => { %>
+        <li><a href="/qr/<%= t.id %>">Listić <%= t.id %></a></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</body>
+</html>
