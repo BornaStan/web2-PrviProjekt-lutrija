@@ -3,35 +3,19 @@
 # ---------------------------
 
 # Node modules
-/backend-lutrija/node_modules/
+/node_modules/
 
 # Build output
-/backend-lutrija/dist/
+/dist/
 
 # Environment files
-/backend-lutrija/.env
+.env
 
 # Logs
-/backend-lutrija/*.log
+*.log
 
 # TypeScript cache
-/backend-lutrija/.tsbuildinfo
-
-# ---------------------------
-# React / Frontend
-# ---------------------------
-
-# Node modules
-/frontend-lutrija/node_modules/
-
-# Build output
-/frontend-lutrija/build/
-
-# Environment files
-/frontend-lutrija/.env
-
-# Logs
-/frontend-lutrija/*.log
+.tsbuildinfo
 
 # ---------------------------
 # General / IDE / OS
