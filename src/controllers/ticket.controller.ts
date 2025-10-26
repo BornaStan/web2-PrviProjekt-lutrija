@@ -13,10 +13,7 @@ export async function create(req: Request, res: Response) {
     const ticket = await ticketService.createTicket(auth0_id, document_number, numbers);
     res.status(201).json(ticket);
   } catch (error) {
-    // Log the error for server-side debugging
     console.error('Error creating ticket:', error);
-    
-    // Return 400 Bad Request to the client
     res.status(400).json({ 
       message: error instanceof Error ? error.message : 'Failed to create ticket'
     });
@@ -27,7 +24,6 @@ interface TicketFormData {
   document_number: string;
   numbers: string;
 }
-// View function (new)
 export async function createForView(req: Request) {
   const { document_number, numbers } = req.body as TicketFormData;
   const auth0_id = req.oidc.user?.sub;

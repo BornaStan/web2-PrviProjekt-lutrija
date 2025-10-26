@@ -10,7 +10,7 @@ export async function newRound(req: Request, res: Response) {
 export async function closeRound(req: Request, res: Response) {
   const result = await adminService.closeRound();
   if (result) res.status(204).send();
-  else res.status(204).send(); // bez efekta ako nije bilo aktivnog kola
+  else res.status(204).send();
 }
 
 export async function storeResults(req: Request, res: Response) {

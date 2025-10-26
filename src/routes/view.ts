@@ -19,16 +19,15 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Form to submit a ticket
+
 router.get("/ticket", (req, res) => {
   res.render("ticket");
 });
 
-// Form submission -> create ticket via controller
+
 router.post("/ticket", async (req, res) => {
   try {
     const ticket = await ticketController.createForView(req);
-    // When successful, render QR page
     res.render("qr2", { ticket });
   } catch (err) {
     console.log(err);
@@ -40,7 +39,6 @@ router.post("/ticket", async (req, res) => {
 router.get("/ticket/:id", async (req, res) => {
   try {
     const ticket = await ticketController.getTicketPublic(req);
-    // When successful, render QR page
     res.render("ticket_public", { ticket });
   } catch (err) {
     console.log(err);

@@ -1,37 +1,3 @@
-/* import run from "node-pg-migrate";
-import { Pool } from "pg";
-import * as path from "path";
-
-async function runMigrations() {
-  const pool = new Pool({
-    host: process.env.PGHOST,
-    port: parseInt(process.env.PGPORT || "5432"),
-    database: process.env.PGDATABASE,
-    user: process.env.PGUSER,
-    password: process.env.PGPASSWORD
-  });
-
-  const client = await pool.connect();
-
-  try {
-    await run({
-      dbClient: client, // Use the client, not the pool
-      dir: path.join(__dirname, "migrations"),
-      direction: "up",
-      migrationsTable: "pgmigrations",
-    });
-    console.log("Migrations completed successfully");
-  } catch (error) {
-    console.error("Migration failed:", error);
-  } finally {
-    client.release(); // Release the client back to the pool
-    await pool.end();
-  }
-}
-
-runMigrations(); */
-
-// migrate.ts
 import run from "node-pg-migrate";
 import { Client } from "pg";
 import * as dotenv from "dotenv";

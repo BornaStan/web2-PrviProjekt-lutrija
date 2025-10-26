@@ -10,8 +10,8 @@ const router = Router();
 
 
 const checkJwt = jwtCheck({
-  audience: process.env.AUTH0_AUDIENCE,                // npr. https://lutrija-api
-  issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,    // https://YOUR_TENANT.auth0.com
+  audience: process.env.AUTH0_AUDIENCE,
+  issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
 });
 
 const needWriteRounds = requiredScopes("write:rounds");

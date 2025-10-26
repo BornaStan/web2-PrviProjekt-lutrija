@@ -12,7 +12,6 @@ app.set("trust proxy", 1);
 
 // EJS setup
 app.set("view engine", "ejs");
-//app.set("views", path.join(__dirname, "..", "src", "views"));
 app.set("views", path.join(__dirname, "views"))
 
 //app.use(auth(config));
@@ -25,7 +24,7 @@ app.get("/health", (_, res) => res.send("OK"));
 
 /** OIDC config (Auth0) ← ADD */
 const oidcConfig = {
-  authRequired: false,              // javne stranice dopuštene
+  authRequired: false,
   auth0Logout: true,
   secret: process.env.AUTH0_SECRET,
   baseURL: process.env.AUTH0_BASE_URL,

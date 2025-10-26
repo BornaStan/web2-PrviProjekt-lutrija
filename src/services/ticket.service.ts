@@ -35,11 +35,8 @@ export async function getUserTickets(auth0_id: string) {
 }
 
 export async function getUserTicketsForActiveRound(auth0_id: string) {
-  // koristimo funkciju iz round.service.ts
   const activeRound = await getCurrentRound();
-
   if (!activeRound) {
-    // ako nema aktivnog kola, nema ni uplata
     return [];
   }
 
