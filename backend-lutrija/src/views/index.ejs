@@ -18,7 +18,7 @@
     <h1>Dobrodošli u Loto aplikaciju</h1>
 
     <% if (round) { %>
-      <p>Trenutno kolo ID: <%= round.id %></p>
+      <p>Trenutno kolo ID: <strong><%= round.id %></strong></p>
     <% } else { %>
       <p>Trenutno nema aktivnog kola.</p>
     <% } %>
@@ -28,8 +28,8 @@
     <% } %>
 
     <% if (results && results.results_numbers) { %>
-      <h3>Izvučeni brojevi:</h3>
-      <p><%= results.results_numbers.join(", ") %></p>
+      <h3>Izvučeni brojevi prošloga kola:</h3>
+      <p><strong><%= results.results_numbers.join(", ") %></strong></p>
     <% } else { %>
       <p>Još nema izvučenih brojeva.</p>
     <% } %>
