@@ -14,7 +14,7 @@ export async function closeRound(req: Request, res: Response) {
 }
 
 export async function storeResults(req: Request, res: Response) {
-  const result = await adminService.storeResults(req.body.results);
+  const result = await adminService.storeResults(req.body.numbers);
   if (result) res.status(201).json(result);
   else res.status(204).send();
 }
