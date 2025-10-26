@@ -14,7 +14,6 @@ export async function getLatestResults(req: Request, res: Response) {
 }
 
 export async function getCurrentRoundForView() {
-  console.log(roundService.getCurrentRound());
   return await roundService.getCurrentRound();
 }
 

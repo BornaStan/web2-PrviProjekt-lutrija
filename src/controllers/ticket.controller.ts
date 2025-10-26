@@ -34,8 +34,7 @@ export async function createForView(req: Request) {
     const numbersArray = numbers
       .split(',')
       .map(num => parseInt(num.trim()));
-    
-    console.log("Parsed numbers:", numbersArray);
+
     const ticket = await ticketService.createTicket(auth0_id, document_number, numbersArray);
     
     const ticketUrl = `${req.protocol}://${req.get("host")}/ticket/${ticket.id}`;

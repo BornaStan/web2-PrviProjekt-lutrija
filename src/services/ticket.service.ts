@@ -74,7 +74,6 @@ function isValidDocumentNumber(document_number: string): boolean {
 function isValidTicketNumbers(numbers: number[]): boolean {
   if (numbers?.length < 6 || numbers?.length > 10) return false;
   for (let i = 0; i < numbers.length; i++) {
-    console.log("Provjera brojeva", numbers[i]);
     if (numbers[i] < 1 || numbers[i] > 45) return false;
     if (numbers.slice(0, i).includes(numbers[i]) || numbers.includes(numbers[i], i + 1)) return false;
   }

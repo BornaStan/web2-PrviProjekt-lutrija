@@ -1,6 +1,3 @@
-console.log("AUTH0_AUDIENCE =", process.env.AUTH0_AUDIENCE);
-console.log("AUTH0_ISSUER_BASE_URL =", process.env.AUTH0_ISSUER_BASE_URL);
-
 import { Router } from "express";
 import * as adminController from "../controllers/admin.controller";
 import { auth as jwtCheck, requiredScopes } from "express-oauth2-jwt-bearer";
