@@ -15,7 +15,7 @@ export async function getCurrentRound() {
 export async function getLatestResults() {
   // Provjeri postoji li aktivno kolo
   const activeRound = await pool.query(`
-    SELECT id FROM rounds WHERE is_active = true LIMIT 1
+    SELECT id FROM rounds WHERE is_active = true OR results_numbers IS NULL LIMIT 1
   `);
 
   // Ako postoji aktivno kolo → ne prikazuj rezultate
