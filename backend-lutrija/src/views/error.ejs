@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 100px auto; padding: 20px; }
+        .error { background: #ffecec; border: 1px solid #f5aca6; padding: 20px; border-radius: 5px; }
+        .home-link { display: inline-block; margin-top: 20px; color: #0066cc; }
+    </style>
+</head>
+<body>
+    <div class="error">
+        <h1>Došlo je do greške</h1>
+        <p><%= message %></p>
+        <a href="/" class="home-link">← Povratak na početnu stranicu</a>
+    </div>
+</body>
+</html>

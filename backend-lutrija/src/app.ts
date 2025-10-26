@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import adminRoutes from "./routes/admin";
 import apiRoutes from "./routes/api";
+import viewRoutes from "./routes/view";
 //import { auth, requiresAuth } from "express-openid-connect";
 
 dotenv.config();
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 //app.use(auth(config));
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/health", (_, res) => res.send("OK"));
 
@@ -51,7 +53,9 @@ app.get("/health", (_, res) => res.send("OK"));
 //app.use("/admin", requiresAuth, requiresRole, adminRoutes);
 
 // korisnički endpointi (user login)
+app.use("/", viewRoutes);
 app.use("/api", apiRoutes);
+app.use("/admin", adminRoutes);
 
 
 export default app;

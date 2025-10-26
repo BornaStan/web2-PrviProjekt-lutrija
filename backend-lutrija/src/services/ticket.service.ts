@@ -1,4 +1,5 @@
 import { pool } from "../db/config";
+import { getCurrentRound } from "./round.service"
 
 export async function createTicket(auth0_id: string, document_number: string, numbers: number[]) {
   if (!isValidDocumentNumber) throw new Error("Invalid document number");
@@ -23,6 +24,23 @@ export async function getUserTickets(auth0_id: string) {
     "SELECT * FROM tickets WHERE auth0_id = $1 ORDER BY created_at DESC",
     [auth0_id]
   );
+  return result.rows;
+}
+
+export async function getUserTicketsForActiveRound(auth0_id: string) {
+  // koristimo funkciju iz round.service.ts
+  const activeRound = await getCurrentRound();
+
+  if (!activeRound) {
+    // ako nema aktivnog kola, nema ni uplata
+    return [];
+  }
+
+  const result = await pool.query(
+    "SELECT * FROM tickets WHERE auth0_id = $1 AND round_id = $2 ORDER BY created_at DESC",
+    [auth0_id, activeRound.id]
+  );
+
   return result.rows;
 }
 

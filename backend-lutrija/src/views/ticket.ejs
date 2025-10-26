@@ -9,9 +9,9 @@
   <div class="container">
     <h1>Uplata Loto Listića</h1>
 
-    <form action="/api/tickets" method="POST" class="form">
-      <label for="idNumber">Broj osobne iskaznice / putovnice:</label>
-      <input type="text" name="idNumber" id="idNumber" maxlength="20" required>
+    <form action="/ticket" method="POST" class="form">
+      <label for="document_number">Broj osobne iskaznice / putovnice:</label>
+      <input type="text" name="document_number" id="document_number" maxlength="20" required>
 
       <label for="numbers">Brojevi (6–10 brojeva od 1 do 45, odvojeni zarezom):</label>
       <input type="text" name="numbers" id="numbers" placeholder="npr. 5,12,18,23,31,42" required>

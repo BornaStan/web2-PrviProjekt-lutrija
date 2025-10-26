@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lutrija</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Dobrodošli u Loto aplikaciju</h1>
+
+    <% if (round) { %>
+      <p>Trenutno kolo ID: <%= round.id %></p>
+    <% } else { %>
+      <p>Trenutno nema aktivnog kola.</p>
+    <% } %>
+
+    <p>Broj uplaćenih listića: <%= ticketsCount || 0 %></p>
+
+    <% if (results && results.results_numbers) { %>
+      <h3>Izvučeni brojevi:</h3>
+      <p><%= results.results_numbers.join(", ") %></p>
+    <% } else { %>
+      <p>Još nema izvučenih brojeva.</p>
+    <% } %>
+
+    <% if (userTickets && userTickets.length > 0) { %>
+      <h3>Vaši listići:</h3>
+      <ul>
+        <% userTickets.forEach(ticket => { %>
+          <li>Listić #<%= ticket.id %>: <%= ticket.numbers.join(', ') %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+    <% if (round && round.is_active) { %>
+      <a href="/ticket" class="button">Uplati listić</a>
+    <% } else { %>
+      <p>Uplate trenutno nisu aktivne.</p>
+    <% } %>
+  </div>
+</body>
+</html>

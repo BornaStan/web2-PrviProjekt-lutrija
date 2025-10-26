@@ -12,3 +12,13 @@ export async function getLatestResults(req: Request, res: Response) {
   if (results) res.json(results);
   else res.status(204).send();
 }
+
+// Add new simple functions for views
+export async function getCurrentRoundForView() {
+  console.log(roundService.getCurrentRound());
+  return await roundService.getCurrentRound();
+}
+
+export async function getLatestResultsForView() {
+  return await roundService.getLatestResults();
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Podaci o listiću</title>
+</head>
+<body>
+  <h1>Podaci o listiću</h1>
+
+  <% if (ticket) { %>
+    <p>Broj osobne: <%= ticket.document %></p>
+    <p>Vaši brojevi: <%= ticket.numbers.join(", ") %></p>
+
+    <% if (ticket.qrUrl) { %>
+      <img src="<%= ticket.qrUrl %>" alt="QR kod" />
+    <% } %>
+
+    <% if (ticket.drawnNumbers && ticket.drawnNumbers.length > 0) { %>
+      <h3>Izvučeni brojevi za ovo kolo:</h3>
+      <p><%= ticket.drawnNumbers.join(", ") %></p>
+    <% } else { %>
+      <p>Brojevi još nisu izvučeni.</p>
+    <% } %>
+  <% } else { %>
+    <p>Listić nije pronađen.</p>
+  <% } %>
+
+  <a href="/">← Povratak na početnu</a>
+</body>
+</html>

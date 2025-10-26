@@ -9,9 +9,14 @@ const router = Router();
 router.get("/round/latest-results", roundController.getLatestResults);
 router.get("/tickets/:id", ticketController.getTicketPublic);
 
-// korisnički endpointi
+/* // korisnički endpointi
 router.get("/round/current", requiresAuth(), roundController.getCurrentRound);
 router.post("/tickets", requiresAuth(), ticketController.create);
-router.get("/tickets", requiresAuth(), ticketController.listUserTickets);
+router.get("/tickets", requiresAuth(), ticketController.listUserTickets); */
+
+// korisnički endpointi
+router.get("/round/current", roundController.getCurrentRound);
+router.post("/tickets", ticketController.create);
+router.get("/tickets", ticketController.listUserTickets);
 
 export default router;
