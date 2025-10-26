@@ -8,7 +8,6 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const round = await roundController.getCurrentRoundForView();
-    console.log(round);
     const results = await roundController.getLatestResultsForView();
     const userTickets = res.locals.isAuthenticated ? await ticketController.listUserTicketsForView(req) : [];
     const activeUserTickets = res.locals.isAuthenticated ? await ticketController.listUserTicketsForActiveRoundView(req) : [];
