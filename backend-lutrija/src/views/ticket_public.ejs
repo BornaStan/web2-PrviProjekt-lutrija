@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Listić</title>
+  </head>
+  <body>
+    <h1>Detalji listića</h1>
+
+    <p><strong>Broj osobne iskaznice:</strong> <%= ticket.document_number %></p>
+    <p><strong>Odabrani brojevi:</strong> <%= ticket.numbers.join(", ") %></p>
+    <p><strong>Kolo:</strong> <%= ticket.round_id %></p>
+
+    <% if (ticket.results_numbers) { %>
+      <p><strong>Izvučeni brojevi:</strong> <%= ticket.results_numbers.join(", ") %></p>
+    <% } else { %>
+      <p>Rezultati još nisu objavljeni.</p>
+    <% } %>
+  </body>
+</html>

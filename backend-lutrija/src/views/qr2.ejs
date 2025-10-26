@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uplata uspješna</title>
+  </head>
+  <body>
+    <h1>Uplata uspješna!</h1>
+
+    <p>Vaš listić je spremljen i možete ga otvoriti skeniranjem QR koda:</p>
+
+    <img
+      src="<%= ticket.qrCodeDataUrl %>"
+      alt="QR kod"
+      width="250"
+      height="250"
+    />
+
+    <p>
+      Ili otvorite direktno:
+      <a href="<%= ticket.ticketUrl %>"><%= ticket.ticketUrl %></a>
+    </p>
+
+    <p><strong>Broj osobne iskaznice:</strong> <%= ticket.document_number %></p>
+    <p><strong>Odabrani brojevi:</strong> <%= ticket.numbers.join(", ") %></p>
+  </body>
+</html>

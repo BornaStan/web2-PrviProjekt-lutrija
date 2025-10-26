@@ -30,7 +30,7 @@ router.post("/ticket", async (req, res) => {
   try {
     const ticket = await ticketController.createForView(req);
     // When successful, render QR page
-    res.render("qr", { ticket });
+    res.render("qr2", { ticket });
   } catch (err) {
     console.log(err);
     res.status(400).render("error", { message: err });
@@ -38,10 +38,15 @@ router.post("/ticket", async (req, res) => {
 });
 
 // Display ticket by ID
-router.get("/ticket/:id", async (req, res) => {
+/* router.get("/ticket/:id", async (req, res) => {
   const ticket = await ticketController.getTicketPublic(req, res);
   if (!ticket) return res.status(404).render("error", { message: "Ticket not found" });
   res.render("qr", { ticket });
+}); */
+
+router.get("/ticket/:id", async (req, res) => {
+  await ticketController.getTicketPublic(req, res);
 });
+
 
 export default router;
