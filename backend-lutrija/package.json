@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
+    "postbuild": "cpx \"src/views/**/*\" dist/src/views && cpx \"public/**/*\" dist/public",
     "start": "node ./dist/server.js",
     "migrate": "node ./dist/db/migrate.js",
     "run": "npm run migrate && npm run start",

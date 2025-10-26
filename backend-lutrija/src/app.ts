@@ -41,9 +41,10 @@ app.use((req, res, next) => {
 });
 
 // korisnički endpointi (user login)
+app.use("/", adminRoutes);
 app.use("/", viewRoutes);
 app.use("/api", apiRoutes);
-app.use("/admin", adminRoutes);
+
 
 
 export default app;

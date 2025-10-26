@@ -10,7 +10,7 @@ export async function create(req: Request, res: Response) {
   if (!auth0_id) return res.status(401).json({ message: "Unauthorized" });
 
   try {
-    const ticket = await ticketService.createTicket("hdfgfd", document_number, numbers);
+    const ticket = await ticketService.createTicket(auth0_id, document_number, numbers);
     res.status(201).json(ticket);
   } catch (error) {
     // Log the error for server-side debugging
@@ -32,8 +32,7 @@ export async function createForView(req: Request) {
   const { document_number, numbers } = req.body as TicketFormData;
   const auth0_id = req.oidc.user?.sub;
 
-  //if (!auth0_id) throw new Error("Unauthorized");
-  //if (!numbers || !Array.isArray(numbers)) throw new Error("Invalid numbers provided");
+  if (!auth0_id) throw new Error("Unauthorized");
 
   try {
     const numbersArray = numbers
@@ -67,14 +66,15 @@ export async function listUserTickets(req: Request, res: Response) {
 
 export async function listUserTicketsForView(req: Request) {
   const auth0_id = req.oidc.user?.sub;
-  if (!auth0_id) return null; // Return null instead of sending response
+  if (!auth0_id) throw new Error("Unauthorized");
   
   return await ticketService.getUserTickets(auth0_id);
 }
 
 
 export async function listUserTicketsForActiveRoundView(req: Request) {
-  const auth0_id = req.oidc?.user?.sub; // za sada bez auth
+  const auth0_id = req.oidc?.user?.sub;
+  if (!auth0_id) throw new Error("Unauthorized");
   return await ticketService.getUserTicketsForActiveRound(auth0_id);
 }
 
