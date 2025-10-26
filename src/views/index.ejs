@@ -23,7 +23,7 @@
       <p>Sva kola su zatvorena. Za nove uplate pričekajte otvaranje novoga kola.</p>
     <% } %>
 
-    <% if (isAuthenticated) { %>
+    <% if (isAuthenticated && round) { %>
       <p>Broj uplaćenih listića za trenutno otvoreno kolo: <strong><%= ticketsCount || 0 %></strong></p>
     <% } %>
 
