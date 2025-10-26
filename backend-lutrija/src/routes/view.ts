@@ -45,8 +45,16 @@ router.post("/ticket", async (req, res) => {
 }); */
 
 router.get("/ticket/:id", async (req, res) => {
-  await ticketController.getTicketPublic(req, res);
+  try {
+    const ticket = await ticketController.getTicketPublic(req);
+    // When successful, render QR page
+    res.render("ticket_public", { ticket });
+  } catch (err) {
+    console.log(err);
+    res.status(400).render("error", { message: err });
+  }
 });
+
 
 
 export default router;

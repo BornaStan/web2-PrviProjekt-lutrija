@@ -1,30 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="hr">
 <head>
   <meta charset="UTF-8">
-  <title>Podaci o listiću</title>
+  <title>Uspješna uplata listića</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <h1>Podaci o listiću</h1>
+  <div class="container">
+    <header>
+      <h1>Uspješno ste uplatili listić 🎉</h1>
+      <p>Vaš listić je spremljen i generiran je QR kod prikazan u nastavku.</p>
+    </header>
 
-  <% if (ticket) { %>
-    <p>Broj osobne: <%= ticket.document %></p>
-    <p>Vaši brojevi: <%= ticket.numbers.join(", ") %></p>
+    <section>
+      <h3>Detalji listića</h3>
+      <p><strong>Broj osobne iskaznice:</strong> <%= ticket.document_number %></p>
+      <p><strong>Odabrani brojevi:</strong> <%= ticket.numbers.join(", ") %></p>
+      <p><strong>Kolo:</strong> <%= ticket.round_id %></p>
+    </section>
 
-    <% if (ticket.qrUrl) { %>
-      <img src="<%= ticket.qrUrl %>" alt="QR kod" />
-    <% } %>
+    <div class="qr-box">
+      <h3>Vaš QR kod:</h3>
+      <img src="<%= ticket.qrCodeDataUrl %>" alt="QR kod listića">
+      <p>
+        <a class="link" href="<%= ticket.ticketUrl %>">
+          Otvori detalje listića na webu
+        </a>
+      </p>
+    </div>
 
-    <% if (ticket.drawnNumbers && ticket.drawnNumbers.length > 0) { %>
-      <h3>Izvučeni brojevi za ovo kolo:</h3>
-      <p><%= ticket.drawnNumbers.join(", ") %></p>
-    <% } else { %>
-      <p>Brojevi još nisu izvučeni.</p>
-    <% } %>
-  <% } else { %>
-    <p>Listić nije pronađen.</p>
-  <% } %>
-
-  <a href="/">← Povratak na početnu</a>
+    <footer style="margin-top: 30px;">
+      <a href="/" class="button">← Povratak na početnu</a>
+    </footer>
+  </div>
 </body>
 </html>

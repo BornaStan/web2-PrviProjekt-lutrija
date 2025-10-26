@@ -1,19 +1,34 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Listić</title>
-  </head>
-  <body>
-    <h1>Detalji listića</h1>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalji listića</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Detalji listića 🎫</h1>
+      <p>Ovdje možete vidjeti sve podatke o ovom listiću.</p>
+    </header>
 
-    <p><strong>Broj osobne iskaznice:</strong> <%= ticket.document_number %></p>
-    <p><strong>Odabrani brojevi:</strong> <%= ticket.numbers.join(", ") %></p>
-    <p><strong>Kolo:</strong> <%= ticket.round_id %></p>
+    <section>
+      <p><strong>Broj osobne iskaznice:</strong> <%= ticket.document_number %></p>
+      <p><strong>Odabrani brojevi:</strong> <%= ticket.numbers.join(", ") %></p>
+      <p><strong>Kolo:</strong> <%= ticket.round_id %></p>
+    </section>
 
-    <% if (ticket.results_numbers) { %>
-      <p><strong>Izvučeni brojevi:</strong> <%= ticket.results_numbers.join(", ") %></p>
-    <% } else { %>
-      <p>Rezultati još nisu objavljeni.</p>
-    <% } %>
-  </body>
+    <section style="margin-top: 20px;">
+      <% if (!ticket.is_active && ticket.results_numbers) { %>
+        <h3>Izvučeni brojevi:</h3>
+        <p><%= ticket.results_numbers.join(", ") %></p>
+      <% } else { %>
+        <p><em>Rezultati još nisu dostupni — kolo je još aktivno.</em></p>
+      <% } %>
+    </section>
+    <footer style="margin-top: 30px;">
+      <a href="/" class="button">← Povratak na početnu</a>
+    </footer>
+  </div>
+</body>
 </html>

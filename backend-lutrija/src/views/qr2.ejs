@@ -1,26 +1,37 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Uplata uspješna</title>
-  </head>
-  <body>
-    <h1>Uplata uspješna!</h1>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <title>Uspješna uplata listića</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Uspješno ste uplatili listić 🎉</h1>
+      <p>Vaš listić je spremljen i generiran je QR kod prikazan u nastavku.</p>
+    </header>
 
-    <p>Vaš listić je spremljen i možete ga otvoriti skeniranjem QR koda:</p>
+    <section>
+      <h3>Detalji listića</h3>
+      <p><strong>Broj osobne iskaznice:</strong> <%= ticket.document_number %></p>
+      <p><strong>Odabrani brojevi:</strong> <%= ticket.numbers.join(", ") %></p>
+      <p><strong>Kolo:</strong> <%= ticket.round_id %></p>
+    </section>
 
-    <img
-      src="<%= ticket.qrCodeDataUrl %>"
-      alt="QR kod"
-      width="250"
-      height="250"
-    />
+    <div class="qr-box">
+      <h3>Vaš QR kod:</h3>
+      <img src="<%= ticket.qrCodeDataUrl %>" alt="QR kod listića">
+      <p>
+        <a class="link" href="<%= ticket.ticketUrl %>">
+          Otvori detalje listića na webu
+        </a>
+      </p>
+    </div>
 
-    <p>
-      Ili otvorite direktno:
-      <a href="<%= ticket.ticketUrl %>"><%= ticket.ticketUrl %></a>
-    </p>
-
-    <p><strong>Broj osobne iskaznice:</strong> <%= ticket.document_number %></p>
-    <p><strong>Odabrani brojevi:</strong> <%= ticket.numbers.join(", ") %></p>
-  </body>
+    <footer style="margin-top: 30px;">
+      <a href="/" class="button">← Povratak na početnu</a>
+    </footer>
+  </div>
+</body>
 </html>

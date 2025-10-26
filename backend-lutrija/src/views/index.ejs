@@ -24,14 +24,50 @@
       <p>Još nema izvučenih brojeva.</p>
     <% } %>
 
-    <% if (userTickets && userTickets.length > 0) { %>
+<!--     <% if (userTickets && userTickets.length > 0) { %>
       <h3>Vaši listići:</h3>
       <ul>
         <% userTickets.forEach(ticket => { %>
           <li>Listić #<%= ticket.id %>: <%= ticket.numbers.join(', ') %></li>
         <% }) %>
       </ul>
-    <% } %>
+    <% } %> -->
+
+    <% if (userTickets && userTickets.length > 0) { %>
+    <h3>Vaši listići:</h3>
+    <ul style="list-style: none; padding: 0;">
+      <% userTickets.forEach(ticket => { %>
+        <li style="margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+          <strong>Listić #<%= ticket.id %>:</strong> <%= ticket.numbers.join(', ') %>
+          <button 
+            class="button" 
+            style="margin-left: 10px; padding: 4px 10px; font-size: 0.9rem;"
+            onclick="toggleDetails('<%= ticket.id %>')">
+            Detalji
+          </button>
+
+          <div id="details-<%= ticket.id %>" style="display: none; margin-top: 10px;">
+            <p><strong>Broj osobne iskaznice:</strong> <%= ticket.document_number %></p>
+            <p><strong>Kolo:</strong> <%= ticket.round_id %></p>
+
+            <% if (ticket.qr_code_url) { %>
+              <div class="qr-box">
+                <img src="<%= ticket.qr_code_url %>" alt="QR kod listića">
+              </div>
+            <% } %>
+            <p><a class="link" href="/ticket/<%= ticket.id %>">Otvori QR kod</a></p>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+
+    <script>
+      function toggleDetails(ticketId) {
+        const details = document.getElementById('details-' + ticketId);
+        details.style.display = details.style.display === 'none' ? 'block' : 'none';
+      }
+    </script>
+  <% } %>
 
     <% if (round && round.is_active) { %>
       <a href="/ticket" class="button">Uplati listić</a>

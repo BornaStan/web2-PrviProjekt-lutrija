@@ -46,6 +46,8 @@ export async function createForView(req: Request) {
     const ticketUrl = `${req.protocol}://${req.get("host")}/ticket/${ticket.id}`;
     
     const qrCodeDataUrl = await QRCode.toDataURL(ticketUrl);
+
+    await ticketService.saveQrCodeToTicket(ticket.id, qrCodeDataUrl);
     
     return { ...ticket, qrCodeDataUrl, ticketUrl };
     
@@ -83,28 +85,9 @@ export async function listUserTicketsForActiveRoundView() {
   res.json(ticket);
 } */
 
-export async function getTicketPublic(req: Request, res: Response) {
+export async function getTicketPublic(req: Request) {
   const { id } = req.params;
-
-  try {
-    const ticketResult = await pool.query(
-      `SELECT t.*, r.results_numbers 
-       FROM tickets t 
-       LEFT JOIN rounds r ON t.round_id = r.id
-       WHERE t.id = $1`,
-      [id]
-    );
-
-    if (ticketResult.rowCount === 0) {
-      return res.status(404).render("error", { message: "Listić nije pronađen" });
-    }
-
-    const ticket = ticketResult.rows[0];
-    res.render("ticket_public", { ticket });
-  } catch (error) {
-    console.error(error);
-    res.status(500).render("error", { message: "Greška pri dohvaćanju listića" });
-  }
+  return await ticketService.getTicketResult(id);
 }
 
 

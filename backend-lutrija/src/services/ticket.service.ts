@@ -2,8 +2,8 @@ import { pool } from "../db/config";
 import { getCurrentRound } from "./round.service"
 
 export async function createTicket(auth0_id: string, document_number: string, numbers: number[]) {
-  if (!isValidDocumentNumber) throw new Error("Invalid document number");
-  if (!isValidTicketNumbers) throw new Error("Invalid ticket numbers");
+  if (!isValidDocumentNumber(document_number)) throw new Error("Invalid document number");
+  if (!isValidTicketNumbers(numbers)) throw new Error("Invalid ticket numbers");
   
   const active = await pool.query("SELECT id FROM rounds WHERE is_active = TRUE");
   if (active.rowCount === 0) throw new Error("No active round");
@@ -17,6 +17,13 @@ export async function createTicket(auth0_id: string, document_number: string, nu
   );
 
   return result.rows[0];
+}
+
+export async function saveQrCodeToTicket(ticketId: string, qrCodeDataUrl: string) {
+  await pool.query("UPDATE tickets SET qr_code_url = $1 WHERE id = $2", [
+    qrCodeDataUrl,
+    ticketId,
+  ]);
 }
 
 export async function getUserTickets(auth0_id: string) {
@@ -46,7 +53,20 @@ export async function getUserTicketsForActiveRound(auth0_id: string) {
 
 export async function getTicketById(id: string) {
   const result = await pool.query("SELECT * FROM tickets WHERE id = $1", [id]);
+  if (result.rowCount === 0) throw new Error("No ticket by that ID!");
   return result.rows[0] || null;
+}
+
+export async function getTicketResult(id: string) {
+  const ticketResult = await pool.query(
+      `SELECT t.*, r.results_numbers 
+       FROM tickets t 
+       LEFT JOIN rounds r ON t.round_id = r.id
+       WHERE t.id = $1`,
+      [id]
+    );
+  if (ticketResult.rowCount === 0) throw new Error("No ticket by that ID!");
+  return ticketResult.rows[0] || null;
 }
 
 function isValidDocumentNumber(document_number: string): boolean {
@@ -57,6 +77,7 @@ function isValidDocumentNumber(document_number: string): boolean {
 function isValidTicketNumbers(numbers: number[]): boolean {
   if (numbers?.length < 6 || numbers?.length > 10) return false;
   for (let i = 0; i < numbers.length; i++) {
+    console.log("Provjera brojeva", numbers[i]);
     if (numbers[i] < 1 || numbers[i] > 45) return false;
     if (numbers.slice(0, i).includes(numbers[i]) || numbers.includes(numbers[i], i + 1)) return false;
   }
