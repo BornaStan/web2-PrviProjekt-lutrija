@@ -7,6 +7,14 @@
 </head>
 <body>
   <div class="container">
+    <header>
+    <% if (isAuthenticated) { %>
+      <p>Prijavljeni ste kao <strong><%= user?.name || user?.email %></strong></p>
+      <a href="/logout" class="button">Odjava</a>
+    <% } else { %>
+      <a href="/login" class="button">Prijava</a>
+    <% } %>
+    </header>
     <h1>Dobrodošli u Loto aplikaciju</h1>
 
     <% if (round) { %>
@@ -15,7 +23,9 @@
       <p>Trenutno nema aktivnog kola.</p>
     <% } %>
 
-    <p>Broj uplaćenih listića: <%= ticketsCount || 0 %></p>
+    <% if (isAuthenticated) { %>
+      <p>Broj uplaćenih listića: <strong><%= ticketsCount || 0 %></strong></p>
+    <% } %>
 
     <% if (results && results.results_numbers) { %>
       <h3>Izvučeni brojevi:</h3>
@@ -23,15 +33,6 @@
     <% } else { %>
       <p>Još nema izvučenih brojeva.</p>
     <% } %>
-
-<!--     <% if (userTickets && userTickets.length > 0) { %>
-      <h3>Vaši listići:</h3>
-      <ul>
-        <% userTickets.forEach(ticket => { %>
-          <li>Listić #<%= ticket.id %>: <%= ticket.numbers.join(', ') %></li>
-        <% }) %>
-      </ul>
-    <% } %> -->
 
     <% if (userTickets && userTickets.length > 0) { %>
     <h3>Vaši listići:</h3>
@@ -69,8 +70,10 @@
     </script>
   <% } %>
 
-    <% if (round && round.is_active) { %>
+    <% if (round && round.is_active && isAuthenticated) { %>
       <a href="/ticket" class="button">Uplati listić</a>
+    <% } else if (!isAuthenticated) { %>
+      <p style="margin-top: 20px; color: #555;">Za uplatu listća potrebna je prijava</p>
     <% } else { %>
       <p>Uplate trenutno nisu aktivne.</p>
     <% } %>

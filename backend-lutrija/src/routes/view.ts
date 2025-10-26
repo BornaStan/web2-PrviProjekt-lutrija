@@ -10,10 +10,9 @@ router.get("/", async (req, res) => {
     const round = await roundController.getCurrentRoundForView();
     console.log(round);
     const results = await roundController.getLatestResultsForView();
-    const userTickets = await ticketController.listUserTicketsForView();
-    const activeUserTickets = await ticketController.listUserTicketsForActiveRoundView();
+    const userTickets = res.locals.isAuthenticated ? await ticketController.listUserTicketsForView(req) : [];
+    const activeUserTickets = res.locals.isAuthenticated ? await ticketController.listUserTicketsForActiveRoundView(req) : [];
     res.render("index", { round, results, userTickets, ticketsCount: activeUserTickets ? activeUserTickets.length : 0});
-    //res.render("index", { round, results, userTickets: [], ticketsCount: 0});
   } catch (err) {
     console.error("Error:", err);
     res.status(500).render("error", { message: "Error loading data" });
@@ -37,12 +36,6 @@ router.post("/ticket", async (req, res) => {
   }
 });
 
-// Display ticket by ID
-/* router.get("/ticket/:id", async (req, res) => {
-  const ticket = await ticketController.getTicketPublic(req, res);
-  if (!ticket) return res.status(404).render("error", { message: "Ticket not found" });
-  res.render("qr", { ticket });
-}); */
 
 router.get("/ticket/:id", async (req, res) => {
   try {

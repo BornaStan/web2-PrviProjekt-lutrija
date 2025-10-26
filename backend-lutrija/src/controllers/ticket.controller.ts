@@ -30,7 +30,7 @@ interface TicketFormData {
 // View function (new)
 export async function createForView(req: Request) {
   const { document_number, numbers } = req.body as TicketFormData;
-  //const auth0_id = req.oidc.user?.sub;
+  const auth0_id = req.oidc.user?.sub;
 
   //if (!auth0_id) throw new Error("Unauthorized");
   //if (!numbers || !Array.isArray(numbers)) throw new Error("Invalid numbers provided");
@@ -41,7 +41,7 @@ export async function createForView(req: Request) {
       .map(num => parseInt(num.trim()));
     
     console.log("Parsed numbers:", numbersArray);
-    const ticket = await ticketService.createTicket("hdfgfd", document_number, numbersArray);
+    const ticket = await ticketService.createTicket(auth0_id, document_number, numbersArray);
     
     const ticketUrl = `${req.protocol}://${req.get("host")}/ticket/${ticket.id}`;
     
@@ -58,32 +58,26 @@ export async function createForView(req: Request) {
 }
 
 export async function listUserTickets(req: Request, res: Response) {
-  //const auth0_id = req.oidc.user?.sub;
-  //if (!auth0_id) return res.status(401).json({ message: "Unauthorized" });
+  const auth0_id = req.oidc.user?.sub;
+  if (!auth0_id) return res.status(401).json({ message: "Unauthorized" });
 
-  const tickets = await ticketService.getUserTickets("hdfgfd");
+  const tickets = await ticketService.getUserTickets(auth0_id);
   res.json(tickets);
 }
 
-export async function listUserTicketsForView() {
-  //const auth0_id = req.oidc.user?.sub;
-  //if (!auth0_id) return null; // Return null instead of sending response
+export async function listUserTicketsForView(req: Request) {
+  const auth0_id = req.oidc.user?.sub;
+  if (!auth0_id) return null; // Return null instead of sending response
   
-  return await ticketService.getUserTickets("hdfgfd");
+  return await ticketService.getUserTickets(auth0_id);
 }
 
 
-export async function listUserTicketsForActiveRoundView() {
-  //const auth0_id = req.oidc?.user?.sub || "test-user"; // za sada bez auth
-  return await ticketService.getUserTicketsForActiveRound("hdfgfd");
+export async function listUserTicketsForActiveRoundView(req: Request) {
+  const auth0_id = req.oidc?.user?.sub; // za sada bez auth
+  return await ticketService.getUserTicketsForActiveRound(auth0_id);
 }
 
-/* export async function getTicketPublic(req: Request, res: Response) {
-  const { id } = req.params;
-  const ticket = await ticketService.getTicketById(id);
-  if (!ticket) return res.status(204).send();
-  res.json(ticket);
-} */
 
 export async function getTicketPublic(req: Request) {
   const { id } = req.params;
