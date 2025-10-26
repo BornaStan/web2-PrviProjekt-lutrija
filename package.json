@@ -1,5 +1,5 @@
 {
-  "name": "backend-lutrija",
+  "name": "prvi_projekt_lutrija",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "postbuild": "shx mkdir -p dist/src/views dist/public && shx cp -r src/views/* dist/src/views && shx cp -r public/* dist/public",
+    "postbuild": "shx mkdir -p dist/views dist/public && shx cp -r src/views/* dist/views && shx cp -r public/* dist/public",
     "start": "node ./dist/server.js",
     "migrate": "node ./dist/db/migrate.js",
     "run": "npm run migrate && npm run start",
