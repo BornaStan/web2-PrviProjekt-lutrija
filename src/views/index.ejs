@@ -15,16 +15,16 @@
       <a href="/login" class="button">Prijava</a>
     <% } %>
     </header>
-    <h1>Dobrodošli u Loto aplikaciju</h1>
+    <h1>Dobrodošli u Loto aplikaciju🎰</h1>
 
     <% if (round) { %>
-      <p>Trenutno kolo ID: <strong><%= round.id %></strong></p>
+      <p>Trenutno aktivno kolo ID: <strong><%= round.id %></strong></p>
     <% } else { %>
-      <p>Trenutno nema aktivnog kola.</p>
+      <p>Sva kola su zatvorena. Za nove uplate pričekajte otvaranje novoga kola.</p>
     <% } %>
 
     <% if (isAuthenticated) { %>
-      <p>Broj uplaćenih listića: <strong><%= ticketsCount || 0 %></strong></p>
+      <p>Broj uplaćenih listića za trenutno otvoreno kolo: <strong><%= ticketsCount || 0 %></strong></p>
     <% } %>
 
     <% if (results && results.results_numbers) { %>
